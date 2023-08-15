@@ -1,14 +1,21 @@
 .app {
   min-height: 100svh;
-  background-color: #dccaee;
+  background-color: var(--background-color);
 }
 
 .appHeader {
-  padding-top: 2em;
   display: grid;
+  grid-template-columns: 1fr;
   justify-content: center;
 
-  background-color: darkkhaki;
+  padding-top: 2em;
+  padding-inline: calc(var(--spacing-gap) / 2);
+  padding-bottom: calc(var(--spacing-gap) / 2);
+
+  /* City View at London by Dominika Gregušová https://www.pexels.com/photo/city-view-at-london-672532/ */
+  background-image: url("./images/pexels-photo-672532.jpeg");
+  background-position: center;
+  background-size: cover;
 }
 
 .filtersContainer {
@@ -17,10 +24,13 @@
   align-items: center;
   justify-content: center;
   gap: calc(var(--spacing-gap) / 2);
+  padding: calc(var(--spacing-gap) / 2);
+
+  width: min-content;
+  min-width: 100%;
 
   background-color: var(--grey-000);
-  width: min-content;
-  padding: calc(var(--spacing-gap) / 2) var(--spacing-gap);
+  border-radius: calc(var(--spacing-gap) / 2);
 }
 
 .occupancyFilters {
@@ -35,13 +45,15 @@
 @media screen and (min-width: 768px) {
   .appHeader {
     padding-top: 4em;
+    padding-bottom: 0;
     margin-bottom: 1em;
+    grid-template-columns: auto;
   }
 
   .filtersContainer {
-    min-width: 100%;
     flex-direction: row;
     gap: var(--spacing-gap);
+    padding: calc(var(--spacing-gap) / 2) var(--spacing-gap);
 
     position: relative;
     top: calc(var(--spacing-gap));
