@@ -1,0 +1,14 @@
+:root {
+  --grey-000: #ffffff;
+  --grey-100: gainsboro;
+
+  --yellow-400: #ffeb3b;
+
+  --spacing-gap: 1em;
+}
+
+@media screen and (min-width: 768px) {
+  :root {
+    --spacing-gap: 2em;
+  }
+}

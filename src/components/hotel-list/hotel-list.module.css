@@ -1,0 +1,79 @@
+.hotelList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  display: grid;
+  gap: var(--spacing-gap);
+}
+
+.hotel {
+  background-color: var(--grey-000);
+  border: 1px solid var(--grey-100);
+}
+
+.header {
+  display: grid;
+  grid-template-columns: minmax(3em, 30vw) 1fr;
+  grid-template-areas:
+    'image description'
+    'rating description';
+
+  gap: var(--spacing-gap);
+  padding: var(--spacing-gap);
+
+  border-bottom: 1px solid var(--grey-100);
+}
+
+.headerImage {
+  grid-area: image;
+}
+
+.headerDescription {
+  grid-area: description;
+}
+
+.headerRating {
+  grid-area: rating;
+  display: grid;
+  margin: auto;
+}
+
+.roomList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.room:not(:last-child) {
+  border-bottom: 1px solid var(--grey-100);
+}
+
+.room>article {
+  display: grid;
+  grid-template-columns: minmax(3em, 30vw) 1fr;
+  padding: var(--spacing-gap);
+}
+
+
+.roomDescription {
+  padding-left: var(--spacing-gap);
+}
+
+@media screen and (min-width: 768px) {
+  .header {
+    grid-template-columns: minmax(6em, 30vw) minmax(max-content, 1fr) auto;
+    grid-template-areas: 'image description rating';
+  }
+
+  .headerRating {
+    display: block;
+    margin: 0;
+  }
+
+  .room>article {
+    display: grid;
+    grid-template-columns: minmax(6em, 30vw) 1fr;
+    padding: var(--spacing-gap);
+  }
+}

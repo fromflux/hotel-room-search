@@ -1,0 +1,28 @@
+.starsRating {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.starsRating :global(.star) {
+  height: 1em;
+  width: 1em;
+}
+
+.starsRating :global(.star) path {
+  stroke-width: 1px;
+}
+
+.starsRating :global(.star.filled) path {
+  fill: var(--yellow-400);
+}
+
+@media screen and (min-width: 768px) {
+  .starsRating :global(.star) {
+    height: 1.2em;
+    width: 1.2em;
+  }
+
+  .starsRating :global(.star) path {
+    stroke-width: 2px;
+  }
+}
