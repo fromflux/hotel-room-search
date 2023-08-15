@@ -3,17 +3,64 @@
   background-color: #dccaee;
 }
 
+.appHeader {
+  padding-top: 3em;
+  display: grid;
+  justify-content: center;
+
+  background-color: darkkhaki;
+}
+
+.filtersContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--spacing-gap) / 2);
+
+  background-color: var(--grey-000);
+  width: min-content;
+  padding: calc(var(--spacing-gap) / 2) var(--spacing-gap);
+}
+
+.occupancyFilters {
+  display: flex;
+  gap: calc(var(--spacing-gap) / 2);
+}
+
 .appContent {
   padding: calc(var(--spacing-gap) / 2);
 }
 
 @media screen and (min-width: 768px) {
+  .appHeader {
+    padding-top: 8em;
+    margin-bottom: 1em;
+  }
+
+  .filtersContainer {
+    min-width: 100%;
+    flex-direction: row;
+    gap: var(--spacing-gap);
+
+    position: relative;
+    top: calc(var(--spacing-gap));
+  }
+
+  .occupancyFilters {
+    gap: var(--spacing-gap);
+  }
+
   .appContent {
     padding: var(--spacing-gap);
   }
 }
 
 @media screen and (min-width: 1024px) {
+  .appHeader {
+    padding-top: 10em;
+  }
+
   .appContent {
     max-width: 85vw;
     margin: auto;

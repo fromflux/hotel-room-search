@@ -1,5 +1,5 @@
 import React, {
-  ChangeEvent, useEffect, useMemo, useReducer,
+  ChangeEvent, startTransition, useEffect, useMemo, useReducer,
 } from 'react';
 
 import './theme/reset.css';
@@ -202,14 +202,21 @@ export default function App() {
   } = state;
 
   const handleRatingChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    dispatch({
-      type: 'setFilterRating',
-      data: Number.parseInt(evt.target.value, 10),
+    startTransition(() => {
+      dispatch({
+        type: 'setFilterRating',
+        data: Number.parseInt(evt.target.value, 10),
+      });
     });
   };
 
   const visibleData = useMemo(() => {
-    if (loading || error) {
+    // bail out if bad filters
+    const validFilters = !(
+      Number.isNaN(filterAdults) || Number.isNaN(filterChildren)
+    );
+
+    if (loading || error || !validFilters) {
       return [];
     }
     return (
@@ -239,37 +246,44 @@ export default function App() {
 
   return (
     <main className={styles.app}>
-      <header>
-        <StarsInput value={filterRating} onChange={handleRatingChange} />
+      <header className={styles.appHeader}>
 
-        <input
-          type="number"
-          name="adults"
-          id="adults"
-          max={10}
-          min={1}
-          value={filterAdults}
-          onChange={
-            (evt) => {
-              dispatch({ type: 'setFilterAdults', data: Number.parseInt(evt.target.value, 10) });
-            }
-          }
-        />
+        <div className={styles.filtersContainer}>
+          <StarsInput value={filterRating} onChange={handleRatingChange} />
 
-        <input
-          type="number"
-          name="children"
-          id="children"
-          max={10}
-          min={0}
-          value={filterChildren}
-          onChange={
-            (evt) => {
-              dispatch({ type: 'setFilterChildren', data: Number.parseInt(evt.target.value, 10) });
-            }
-          }
-        />
+          <div className={styles.occupancyFilters}>
+            <input
+              type="number"
+              name="adults"
+              id="adults"
+              max={10}
+              min={1}
+              value={filterAdults}
+              onChange={
+                (evt) => {
+                  dispatch({ type: 'setFilterAdults', data: Number.parseInt(evt.target.value, 10) });
+                }
+              }
+            />
+
+            <input
+              type="number"
+              name="children"
+              id="children"
+              max={10}
+              min={0}
+              value={filterChildren}
+              onChange={
+                (evt) => {
+                  dispatch({ type: 'setFilterChildren', data: Number.parseInt(evt.target.value, 10) });
+                }
+              }
+            />
+          </div>
+        </div>
+
       </header>
+
       <div className={styles.appContent}>
         <HotelList hotels={visibleData} />
       </div>

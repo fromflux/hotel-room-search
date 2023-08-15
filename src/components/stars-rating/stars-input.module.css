@@ -15,9 +15,14 @@
   width: 0;
 }
 
-.starsInput input[type="radio"]:focus+label path {
+.starsInput label {
+  cursor: pointer;
+}
+
+.starsInput input[type="radio"]:focus+label path,
+.starsInput input[type="radio"]:hover+label path {
   stroke-width: 2px;
-  stroke: var(--highlight-color);
+  stroke: var(--highlight-color, black);
 }
 
 .starsInput input[type="radio"]:checked+label path {
