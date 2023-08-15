@@ -9,6 +9,7 @@ import styles from './app.module.css';
 
 import HotelList from './components/hotel-list';
 import StarsInput from './components/stars-rating/stars-input';
+import RangeInput from './components/range-input/range-input';
 
 const HOTELS_API = 'https://obmng.dbm.guestline.net/api/hotels?collection-id=OBMNG';
 const ROOMS_API = 'https://obmng.dbm.guestline.net/api/roomRates/OBMNG/';
@@ -210,6 +211,24 @@ export default function App() {
     });
   };
 
+  const handleAdultsChange = (value: number) => {
+    startTransition(() => {
+      dispatch({
+        type: 'setFilterAdults',
+        data: value,
+      });
+    });
+  };
+
+  const handleChildrenChange = (value: number) => {
+    startTransition(() => {
+      dispatch({
+        type: 'setFilterChildren',
+        data: value,
+      });
+    });
+  };
+
   const visibleData = useMemo(() => {
     // bail out if bad filters
     const validFilters = !(
@@ -252,32 +271,19 @@ export default function App() {
           <StarsInput value={filterRating} onChange={handleRatingChange} />
 
           <div className={styles.occupancyFilters}>
-            <input
-              type="number"
-              name="adults"
-              id="adults"
-              max={10}
-              min={1}
+            <RangeInput
+              label="Adults:"
               value={filterAdults}
-              onChange={
-                (evt) => {
-                  dispatch({ type: 'setFilterAdults', data: Number.parseInt(evt.target.value, 10) });
-                }
-              }
-            />
-
-            <input
-              type="number"
-              name="children"
-              id="children"
+              min={1}
               max={10}
-              min={0}
+              onChange={handleAdultsChange}
+            />
+            <RangeInput
+              label="Children:"
               value={filterChildren}
-              onChange={
-                (evt) => {
-                  dispatch({ type: 'setFilterChildren', data: Number.parseInt(evt.target.value, 10) });
-                }
-              }
+              min={0}
+              max={10}
+              onChange={handleChildrenChange}
             />
           </div>
         </div>

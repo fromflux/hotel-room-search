@@ -1,0 +1,30 @@
+.rangeInput {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing-gap) / 4);
+}
+
+.rangeInput input {
+  width: 2em;
+  text-align: center
+}
+
+.rangeInput input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+  margin: 0;
+}
+
+.rangeInput input[type=number]::-webkit-inner-spin-button,
+.rangeInput input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.rangeInput button {
+  cursor: pointer;
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+  border: 1px solid grey;
+}
