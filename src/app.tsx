@@ -1,4 +1,6 @@
-import React, { useEffect, useMemo, useReducer } from 'react';
+import React, {
+  ChangeEvent, useEffect, useMemo, useReducer,
+} from 'react';
 
 import './theme/reset.css';
 import './theme/globals.css';
@@ -6,6 +8,7 @@ import './theme/globals.css';
 import styles from './app.module.css';
 
 import HotelList from './components/hotel-list';
+import StarsInput from './components/stars-rating/stars-input';
 
 const HOTELS_API = 'https://obmng.dbm.guestline.net/api/hotels?collection-id=OBMNG';
 const ROOMS_API = 'https://obmng.dbm.guestline.net/api/roomRates/OBMNG/';
@@ -38,7 +41,7 @@ type TState = {
   error: string | null
   hotels: THotelDTM[]
   hotelRooms: Record<string, TRoomDTM[]>
-  filterRating: number
+  filterRating: 1 | 2 | 3 | 4 | 5
   filterAdults: number
   filterChildren: number
 }
@@ -94,7 +97,7 @@ function reducer(state: TState, action: TAction): TState {
     case 'setFilterRating':
       return {
         ...state,
-        filterRating: action.data,
+        filterRating: action.data as TState['filterRating'],
       };
     case 'setFilterAdults':
       return {
@@ -198,13 +201,20 @@ export default function App() {
     loading, error, hotels, hotelRooms, filterRating, filterAdults, filterChildren,
   } = state;
 
+  const handleRatingChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    dispatch({
+      type: 'setFilterRating',
+      data: Number.parseInt(evt.target.value, 10),
+    });
+  };
+
   const visibleData = useMemo(() => {
     if (loading || error) {
       return [];
     }
     return (
       hotels
-        .filter((hotel) => Number.parseInt(hotel.starRating, 10) >= filterRating)
+        .filter((hotel) => (Number.parseInt(hotel.starRating, 10) >= filterRating))
         .map((hotel) => ({
           ...hotel,
           rooms: hotelRooms[hotel.id]
@@ -230,19 +240,8 @@ export default function App() {
   return (
     <main className={styles.app}>
       <header>
-        <input
-          type="number"
-          name="rating"
-          id="rating"
-          max={5}
-          min={1}
-          value={filterRating}
-          onChange={
-            (evt) => {
-              dispatch({ type: 'setFilterRating', data: Number.parseInt(evt.target.value, 10) });
-            }
-          }
-        />
+        <StarsInput value={filterRating} onChange={handleRatingChange} />
+
         <input
           type="number"
           name="adults"
@@ -256,6 +255,7 @@ export default function App() {
             }
           }
         />
+
         <input
           type="number"
           name="children"

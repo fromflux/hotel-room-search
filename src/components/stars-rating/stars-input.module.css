@@ -1,0 +1,41 @@
+.starsInput {
+  margin: 0;
+  padding: 0;
+  border: none;
+
+  display: flex;
+  gap: 0.1em;
+}
+
+.starsInput input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.starsInput input[type="radio"]:focus+label path {
+  stroke-width: 2px;
+  stroke: var(--highlight-color);
+}
+
+.starsInput input[type="radio"]:checked+label path {
+  fill: var(--yellow-400);
+}
+
+/* No :has Support in Firefox yet :( */
+.starsInput input[type="radio"]+label:has(~ .starsInput input[type="radio"]:checked+label) path {
+  fill: var(--yellow-400);
+}
+
+/* Fallback for Firefox */
+.starsInput input[type="radio"]+label:global(.filled) path {
+  fill: var(--yellow-400);
+}
+
+@media (pointer:coarse) {
+  .starsInput {
+    gap: 0.8em;
+  }
+}
