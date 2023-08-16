@@ -34,8 +34,17 @@ export default function RangeInput({
       className={styles.rangeInput}
       htmlFor={id}
     >
-      <span>{label}</span>
-      <button type="button" onClick={handleDecClick}>-</button>
+      <span>
+        {label}
+        :
+      </span>
+      <button
+        type="button"
+        onClick={handleDecClick}
+        aria-label={`Decrease ${label}`}
+      >
+        -
+      </button>
       <input
         id={id}
         type="number"
@@ -44,7 +53,13 @@ export default function RangeInput({
         max={max}
         onChange={handleChange}
       />
-      <button type="button" onClick={handleIncClick}>+</button>
+      <button
+        type="button"
+        onClick={handleIncClick}
+        aria-label={`Increase ${label}`}
+      >
+        +
+      </button>
     </label>
   );
 }

@@ -14,10 +14,11 @@
 
 .header {
   display: grid;
-  grid-template-columns: minmax(3em, 30vw) 1fr;
+  grid-template-columns: 1fr;
   grid-template-areas:
-    'image description'
-    'rating description';
+    'image'
+    'rating'
+    'description';
 
   gap: var(--spacing-gap);
   padding: var(--spacing-gap);
@@ -31,6 +32,8 @@
 
 .headerDescription {
   grid-area: description;
+
+  text-align: center;
 }
 
 .headerRating {
@@ -64,6 +67,10 @@
   .header {
     grid-template-columns: minmax(6em, 30vw) minmax(max-content, 1fr) auto;
     grid-template-areas: 'image description rating';
+  }
+
+  .headerDescription {
+    text-align: left;
   }
 
   .headerRating {

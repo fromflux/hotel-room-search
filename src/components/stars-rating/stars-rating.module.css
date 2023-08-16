@@ -22,7 +22,8 @@
     width: 1.2em;
   }
 
-  .starsRating :global(.star) path {
-    stroke-width: 2px;
+  .starsRating :global(.star) {
+    width: 1.4em;
+    height: 1.4em;
   }
 }

@@ -272,14 +272,14 @@ export default function App() {
 
           <div className={styles.occupancyFilters}>
             <RangeInput
-              label="Adults:"
+              label="Adults"
               value={filterAdults}
               min={1}
               max={10}
               onChange={handleAdultsChange}
             />
             <RangeInput
-              label="Children:"
+              label="Children"
               value={filterChildren}
               min={0}
               max={10}

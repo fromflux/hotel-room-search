@@ -1,4 +1,6 @@
 import React from 'react';
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 
 import styles from './hotel-list.module.css';
 
@@ -35,7 +37,56 @@ export default function HotelList({ hotels }: TProps) {
           <article>
             <header className={styles.header}>
 
-              <img className={styles.headerImage} src={hotel.images[0].url} alt={hotel.name} />
+              <Carousel
+                className={styles.headerImage}
+                arrows
+                showDots
+                removeArrowOnDeviceType="mobile"
+                centerMode={false}
+                slidesToSlide={1}
+                swipeable
+                minimumTouchDrag={80}
+                draggable={false}
+                infinite
+                keyBoardControl
+                responsive={{
+                  desktop: {
+                    breakpoint: {
+                      max: 3000,
+                      min: 1024,
+                    },
+                    items: 1,
+                  },
+                  mobile: {
+                    breakpoint: {
+                      max: 464,
+                      min: 0,
+                    },
+                    items: 1,
+                  },
+                  tablet: {
+                    breakpoint: {
+                      max: 1024,
+                      min: 464,
+                    },
+                    items: 1,
+                  },
+                }}
+              >
+                {hotel.images.map((image) => (
+                  <img
+                    key={image.url}
+                    src={image.url}
+                    style={{
+                      display: 'block',
+                      height: '100%',
+                      margin: 'auto',
+                      width: '100%',
+                    }}
+                    alt={hotel.name}
+                  />
+                ))}
+              </Carousel>
 
               <section className={styles.headerDescription}>
                 <h2>{hotel.name}</h2>
