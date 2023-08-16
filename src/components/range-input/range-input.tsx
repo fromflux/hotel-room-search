@@ -45,6 +45,7 @@ export default function RangeInput({
       </button>
       <input
         id={id}
+        aria-label={`${label} input`}
         type="number"
         value={value}
         min={min}

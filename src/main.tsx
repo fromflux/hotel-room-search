@@ -3,10 +3,10 @@ import { createRoot } from 'react-dom/client';
 
 import App from './app';
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'test') {
   // eslint-disable-next-line global-require, @typescript-eslint/no-var-requires
   const { worker } = require('./mocks/browser');
-  // worker.start();
+  worker.start();
 }
 
 const root = createRoot(document.getElementById('root') as HTMLElement);

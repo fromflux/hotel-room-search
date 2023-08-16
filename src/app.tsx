@@ -299,7 +299,7 @@ export default function App() {
           <HotelsLoader />
         )}
         {!loading && visibleData.length > 0 && (<HotelList hotels={visibleData} />)}
-        {!loading && visibleData.length === 0 && (
+        {!loading && visibleData.length === 0 && !error && (
           <div className={styles.contentEmpty}>
             <h3>Could not find hotels matching the filters :(</h3>
             <h4>
@@ -314,7 +314,7 @@ export default function App() {
 
 function HotelsLoader() {
   return (
-    <div className={styles.contentLoader}>
+    <div className={styles.contentLoader} aria-label="Loading...">
       {new Array(3).fill(null).map((_, i) => (
         <ContentLoader
           // eslint-disable-next-line react/no-array-index-key
