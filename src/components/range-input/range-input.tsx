@@ -34,10 +34,8 @@ export default function RangeInput({
       className={styles.rangeInput}
       htmlFor={id}
     >
-      <span>
-        {label}
-        :
-      </span>
+      {label}
+      :
       <button
         type="button"
         onClick={handleDecClick}

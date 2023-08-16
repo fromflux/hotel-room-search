@@ -30,6 +30,7 @@ export default function StarsInput({ value, onChange }: TProps) {
               filled: index + 1 <= value,
             })}
             htmlFor={`rating-${index + 1}`}
+            aria-label={`${index + 1} stars`}
           >
             <Star />
           </label>

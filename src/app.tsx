@@ -1,6 +1,8 @@
+/* eslint-disable no-use-before-define */
 import React, {
   ChangeEvent, startTransition, useEffect, useMemo, useReducer,
 } from 'react';
+import ContentLoader from 'react-content-loader';
 
 import './theme/reset.css';
 import './theme/globals.css';
@@ -255,14 +257,6 @@ export default function App() {
     );
   }, [loading, error, hotels, hotelRooms, filterRating, filterAdults, filterChildren]);
 
-  if (loading) {
-    return <h1>Loading...</h1>;
-  }
-
-  if (error) {
-    return <h1>{error}</h1>;
-  }
-
   return (
     <main className={styles.app}>
       <header className={styles.appHeader}>
@@ -291,8 +285,54 @@ export default function App() {
       </header>
 
       <div className={styles.appContent}>
-        <HotelList hotels={visibleData} />
+        {error && (
+          <div className={styles.contentError}>
+            <h3>Something went wrong :(</h3>
+            <h4>
+              Error:
+              {' '}
+              {error}
+            </h4>
+          </div>
+        )}
+        {loading && (
+          <HotelsLoader />
+        )}
+        {!loading && visibleData.length > 0 && (<HotelList hotels={visibleData} />)}
+        {!loading && visibleData.length === 0 && (
+          <div className={styles.contentEmpty}>
+            <h3>Could not find hotels matching the filters :(</h3>
+            <h4>
+              Please try again with different options
+            </h4>
+          </div>
+        )}
       </div>
     </main>
+  );
+}
+
+function HotelsLoader() {
+  return (
+    <div className={styles.contentLoader}>
+      {new Array(3).fill(null).map((_, i) => (
+        <ContentLoader
+          // eslint-disable-next-line react/no-array-index-key
+          key={i}
+          speed={2}
+          viewBox="0 0 400 190"
+          backgroundColor="#f3f3f3"
+          foregroundColor="#ecebeb"
+        >
+          <rect x="0" y="0" rx="0" ry="0" width="150" height="100" />
+          <rect x="170" y="10" rx="3" ry="3" width="150" height="10" />
+          <rect x="170" y="34" rx="3" ry="3" width="82" height="8" />
+          <rect x="170" y="57" rx="3" ry="3" width="82" height="8" />
+          <rect x="0" y="110" rx="3" ry="3" width="410" height="6" />
+          <rect x="0" y="130" rx="3" ry="3" width="380" height="6" />
+          <rect x="0" y="150" rx="3" ry="3" width="178" height="6" />
+        </ContentLoader>
+      ))}
+    </div>
   );
 }
